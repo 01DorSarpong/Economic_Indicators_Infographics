@@ -57,27 +57,34 @@ avg_inflation = inflation.mean()
 avg_gdp = gdp.mean()
 
 # Creating subplots
-fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(15, 10), 
+fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(15, 8), 
                          gridspec_kw={'hspace': 0.4}, facecolor='lightyellow')
-plt.subplots_adjust(wspace=0.4)
-plt.subplots_adjust(hspace=0.2) 
-fig.suptitle('Economic Performances Based on World Development Indicators',
-             fontsize=30, fontweight='bold', color='purple', fontstyle='italic')
+plt.subplots_adjust(wspace=0.3)
+plt.subplots_adjust(hspace=0.3) 
+fig.suptitle('Economic Performances of Countries Based on Development Indicators',
+             fontsize=25, fontweight='bold', color='purple', fontstyle='italic')
 
 # Subplot 1: Bar and Line plot for Imports and Exports of China
-sns.barplot(y=imports['China'], x=years, ax=axes[0, 0])
-axes[0, 0].set_ylabel('Imports')
+sns.barplot(y=imports['China'], x=years, alpha=1, 
+            ax=axes[0, 0])
+sns.barplot(y=imports['Canada'], x=years, alpha=0.6, 
+            ax=axes[0, 0])
+axes[0, 0].set_ylabel('Imports (Bar)')
 axes2 = axes[0, 0].twinx()
-#axes2 = axes[0, 0].twiny()
-sns.lineplot(y=exports['China'], x=years, ax=axes2, marker='o', color='black')
-axes2.set_ylabel('Exports')
-axes[0, 0].set_title('Imports and Exports of Goods & Services for China', 
-                     fontsize=15, fontweight='bold', color='indigo')
+sns.lineplot(y=exports['China'], x=years, ax=axes2, marker='o', label='China_Exports',
+             color='black')
+sns.lineplot(y=exports['Canada'], x=years, ax=axes2, marker='o', label='Canada_Exports',
+             color='purple')
+axes[0,0].legend(facecolor='lightyellow')
+axes2.set_ylabel('Exports(Line)')
+axes[0, 0].set_title('Imports and Exports of Goods & Services for China & Canada', 
+                     fontsize=13, fontweight='bold', color='indigo')
 axes[0,0].set(facecolor='lightyellow')
 
 
+
 # Subplot 2: Line plot showing Total Labor Force for all countries
-axes[0, 1].set_title('Total Labor Force per Country',fontsize=15, fontweight='bold', color='indigo')
+axes[0, 1].set_title('Total Labor Force per Country',fontsize=13, fontweight='bold', color='indigo')
 for country in countries:
     sns.lineplot(x=years, y=df2['Labor force, total'][country], ax=axes[0, 1],label=country)
 axes[0, 1].legend(facecolor='lightyellow')
@@ -87,7 +94,7 @@ axes[0,1].set(facecolor='lightyellow')
 # Subplot 3: Bar plot for Average Annual GDP Growth
 sns.barplot(x=avg_gdp, y=countries, ax=axes[1, 0], alpha=0.7, palette='colorblind')
 axes[1, 0].set_title('Average Annual GDP % Growth from 1991 to 2000', 
-                     fontsize=15, fontweight='bold', color='indigo')
+                     fontsize=13, fontweight='bold', color='indigo')
 axes[1, 0].set_ylabel('Countries')
 axes[1, 0].set_xlabel('Annual % Growth')
 
@@ -98,34 +105,27 @@ axes[1,0].set(facecolor='lightyellow')
 
 # Subplot 4: Pie chart for Average Annual Inflation Growth
 axes[1, 1].set_title('Average Annual Inflation % Growth from 1991 to 2000',
-                     fontsize=15, fontweight='bold', color='indigo')
+                     fontsize=13, fontweight='bold', color='indigo')
 explode = [0.15 if country == 'China' else 0.05 for country in countries]
 axes[1, 1].pie(avg_inflation, labels=countries, autopct='%1.1f%%', startangle=90, shadow=True, explode=explode)
 
 # Adjust layout
-plt.tight_layout(rect=[0,0,1,0.96])
-plt.text(12,-8, 
-'Student ID: 21090468 \nName: Dorothy Sarpong Kumankoma', horizontalalignment='center', fontsize=20, fontweight='bold')
+plt.tight_layout(rect=[0,0,1,0.8])
+plt.text(12,-58, 
+'Student ID: 21090468 \nName: Dorothy Sarpong Kumankoma', horizontalalignment='center',
+ fontsize=15, fontweight='bold')
 
-plt.text(-4,-10, 
-'The infographics displayed above shows the economic performance of some selected ' 
-         'countries between 1991 and 2000.', fontsize=19, fontstyle='italic')
+plt.text(-1,-67, 
+'The infographics displayed shows economic performances of US, China, Germany, ' 
+'Canada, UK and South Africa\nbetween 1991 and 2000.', fontsize=15, fontstyle='italic')
 
-
-plt.text(11,-15, 
-'Economic indicators help us to assess the performances of countries in comparison with'
-'other countries. The above charts \nshow the performance as measured by GDP, Inflation, Imports and Exports'
-' of some select countries namely China, Canada,\nGermany, United States, United Kingdom and South Africa.'
-'China having a high population and being named in the top 5 \nhighly populated countries in the world reflects this'
-' in their high volumes of labour force. The high labour force however \npositively correlates '
-'with their economic performances.', horizontalalignment='center', fontsize=19, fontstyle='italic')
-
-plt.text(11,-20,
-'A deep dive into the economic performance of China as expressed in the Immports and Exports of Goods and Services\n'
-'shows that China had very high imports in year 1994 and 2000 and recorded the highest exports in 1997 and 2000.\n'
-'Although United States shows the highest average GDP growth over the period, China also demonstrates'
-'a high GDP growth. \n With the lowest inflation amongst all the counries displayed, we can observe a good economic\n'
-'performance for China over the period of 1991 to 2000.',horizontalalignment='center',fontsize=19, fontstyle='italic')
+plt.text(-1,-92, 
+'China having the highest population amongst all the countires correlates with its substantial labor force growth.\n'
+'The import-export graph suggests that despite high imports, Chinas significant exports contribute to its economic \nstrength.'
+'\n\nCanada showed a rapid growth in Exports over the years which was good however, a higher growth in Imports \n'
+'resulted in substantial inflation.'
+'The significant growth in GDP highlights Chinas economic prowess, while \nCanadas lower GDP growth aligns with '
+'its inflation challenges.', fontsize=15, fontstyle='italic')
 
 
-plt.savefig("21090468.png", dpi=300)
+plt.savefig("21090468.png", dpi=300, bbox_inches='tight')
