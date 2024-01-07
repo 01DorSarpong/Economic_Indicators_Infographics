@@ -130,5 +130,5 @@ A link to a jupyter version of the code on github is below:
 https://github.com/01DorSarpong/Economic_Indicators_Infographics/blob/main/Jupyter_V1.ipynb
 """
 
-plt.savefig("21090468.png", dpi=300, bbox_inches='tight')
+plt.show()
 
