@@ -91,21 +91,27 @@ for idx, value in enumerate(avg_gdp):
 axes[1, 0].set(facecolor='lightyellow')
 
 # Subplot 4: Bar and Line plot for Imports and Exports of China
-sns.barplot(y=imports['China'], x=years, alpha=1, 
+
+sns.barplot(y=imports['China'], x=years,color='cyan', label = 'China_Imports',
             ax=axes[1, 1])
-sns.barplot(y=imports['Canada'], x=years, alpha=0.6, 
+sns.barplot(y=imports['Canada'], x=years, alpha=0.5, color='black', label = 'Canada_Imports',
             ax=axes[1, 1])
 axes[1, 1].set_ylabel('Imports (Bar)', fontsize=12,  fontweight='bold')
 axes[1, 1].set_xlabel('Years', fontsize=12,  fontweight='bold')
 axes2 = axes[1, 1].twinx()
 sns.lineplot(y=exports['China'], x=years, ax=axes2, marker='o', label='China_Exports',
-             color='black')
-sns.lineplot(y=exports['Canada'], x=years, ax=axes2, marker='o', label='Canada_Exports',
              color='purple')
+sns.lineplot(y=exports['Canada'], x=years, ax=axes2, marker='o', label='Canada_Exports',
+             color='black')
 axes2.set_ylabel('Exports(Line)', fontsize=12,  fontweight='bold')
 axes[1, 1].set_title('Imports and Exports of Goods & Services for China & Canada', 
                      fontsize=13, fontweight='bold', color='indigo')
 axes[1, 1].set(facecolor='lightyellow')
+
+# Adding the legend for bar plot 
+lines, labels = axes[1, 1].get_legend_handles_labels()
+axes[1, 1].legend(lines, labels, loc='upper left', bbox_to_anchor=(0.5, 0.7), 
+                  facecolor='lightyellow')
 
 # Adjust layout
 plt.tight_layout(rect=[0,0,1,0.8])
@@ -125,10 +131,11 @@ plt.text(-15,-55,
 'The significant growth in GDP highlights Chinas economic prowess, while \nCanadas lower GDP growth aligns with '
 'its inflation challenges.', fontsize=15, fontstyle='italic')
 
+
 """
 A link to a jupyter version of the code on github is below:
 https://github.com/01DorSarpong/Economic_Indicators_Infographics/blob/main/Jupyter_V1.ipynb
 """
 
-plt.show()
+plt.savefig("21090468.png", dpi=300, bbox_inches='tight')
 
